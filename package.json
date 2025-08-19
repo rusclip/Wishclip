@@ -1,19 +1,12 @@
 {
   "name": "wishclip",
-  "version": "0.1.0",
-  "private": true,
-  "type": "module",
+  "version": "1.0.0",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview --port 4173"
-  },
-  "dependencies": {
-    "react": "18.3.1",
-    "react-dom": "18.3.1"
+    "preview": "vite preview"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "4.3.1",
-    "vite": "5.3.4"
+    "vite": "^5.0.0"
   }
 }
