@@ -1,93 +1,144 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WishClip — поздравительные клипы</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WishClip</title>
   <style>
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: url("https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1920&q=80") no-repeat center center fixed;
-      background-size: cover;
+      background: url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?fit=crop&w=1600&q=80') no-repeat center center/cover;
+      height: 100vh;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
-      text-align: center;
       color: white;
+      text-align: center;
     }
     .overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.5);
-      z-index: 1;
-    }
-    .content {
-      position: relative;
-      z-index: 2;
+      background: rgba(0,0,0,0.6);
+      padding: 40px;
+      border-radius: 16px;
       max-width: 600px;
-      padding: 20px;
+      width: 90%;
     }
     h1 {
-      font-size: 2.5em;
+      font-size: 2.2rem;
       margin-bottom: 20px;
     }
-    p {
-      font-size: 1.2em;
-      margin-bottom: 30px;
-    }
     .buttons {
-      display: flex;
-      gap: 20px;
-      justify-content: center;
+      margin-top: 20px;
     }
-    a {
+    button {
       padding: 12px 24px;
+      margin: 10px;
+      border: none;
       border-radius: 8px;
-      font-size: 1.2em;
-      text-decoration: none;
-      background: #ff3366;
+      font-size: 1rem;
+      cursor: pointer;
+      background-color: #ff4081;
       color: white;
-      transition: 0.3s;
+      transition: background 0.3s;
     }
-    a:hover {
-      background: #ff0044;
+    button:hover {
+      background-color: #e91e63;
     }
-    a.secondary {
-      background: #0077ff;
-    }
-    a.secondary:hover {
-      background: #0055cc;
-    }
-
-    /* 📱 Мобильная версия */
-    @media (max-width: 768px) {
-      h1 {
-        font-size: 2em;
-      }
-      p {
-        font-size: 1em;
-      }
-      .buttons {
-        flex-direction: column;
-      }
+    select {
+      margin-top: 20px;
+      padding: 8px;
+      border-radius: 6px;
+      border: none;
+      font-size: 1rem;
     }
   </style>
 </head>
 <body>
-  <div class="overlay"></div>
-  <div class="content">
-    <h1>Хотите получить свой персональный клип?</h1>
-    <p>Выберите, что вам подходит:</p>
+  <div class="overlay">
+    <h1 id="title">Create a unique song-video as a gift or love confession 🎵</h1>
+    <p id="question">Do you have a QR code?</p>
     <div class="buttons">
-      <a href="qr.html">Да</a>
-      <a href="buy.html" class="secondary">Нет</a>
+      <button onclick="goTo('yes')">Yes</button>
+      <button onclick="goTo('no')">No</button>
+    </div>
+    <div>
+      <label for="lang">🌐 Language: </label>
+      <select id="lang" onchange="setLang(this.value)">
+        <option value="en">English</option>
+        <option value="ru">Русский</option>
+        <option value="es">Español</option>
+        <option value="de">Deutsch</option>
+        <option value="fr">Français</option>
+        <option value="zh">中文</option>
+        <option value="ja">日本語</option>
+      </select>
     </div>
   </div>
+
+  <script>
+    const translations = {
+      en: {
+        title: "Create a unique song-video as a gift or love confession 🎵",
+        question: "Do you have a QR code?",
+        yes: "Yes",
+        no: "No"
+      },
+      ru: {
+        title: "Создайте уникальный песенный клип в подарок или признание в любви 🎵",
+        question: "У вас есть QR-код?",
+        yes: "Да",
+        no: "Нет"
+      },
+      es: {
+        title: "Crea un videoclip único como regalo o confesión de amor 🎵",
+        question: "¿Tienes un código QR?",
+        yes: "Sí",
+        no: "No"
+      },
+      de: {
+        title: "Erstelle ein einzigartiges Song-Video als Geschenk oder Liebesgeständnis 🎵",
+        question: "Hast du einen QR-Code?",
+        yes: "Ja",
+        no: "Nein"
+      },
+      fr: {
+        title: "Créez un clip unique comme cadeau ou déclaration d'amour 🎵",
+        question: "Avez-vous un code QR ?",
+        yes: "Oui",
+        no: "Non"
+      },
+      zh: {
+        title: "制作独特的歌曲视频作为礼物或爱的告白 🎵",
+        question: "你有二维码吗？",
+        yes: "有",
+        no: "没有"
+      },
+      ja: {
+        title: "贈り物や愛の告白としてユニークなソングビデオを作りましょう 🎵",
+        question: "QRコードを持っていますか？",
+        yes: "はい",
+        no: "いいえ"
+      }
+    };
+
+    function setLang(lang) {
+      document.getElementById("title").innerText = translations[lang].title;
+      document.getElementById("question").innerText = translations[lang].question;
+      document.querySelectorAll("button")[0].innerText = translations[lang].yes;
+      document.querySelectorAll("button")[1].innerText = translations[lang].no;
+      document.getElementById("lang").value = lang;
+    }
+
+    function goTo(answer) {
+      if(answer === "yes") {
+        window.location.href = "/qr";
+      } else {
+        window.location.href = "/gpt";
+      }
+    }
+
+    // default language = English
+    setLang("en");
+  </script>
 </body>
 </html>
