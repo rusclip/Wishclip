@@ -1,19 +1,20 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const yesBtn = document.getElementById("btnYes");
-  const noBtn = document.getElementById("btnNo");
+document.addEventListener("DOMContentLoaded", function () {
+  const yesBtn = document.getElementById("yesBtn");
+  const noBtn = document.getElementById("noBtn");
 
-  yesBtn.addEventListener("click", () => {
-    const qr = prompt("Введите ваш QR-код:");
-    if (qr && qr.trim().length > 3) {
-      alert("QR-код принят ✅ (здесь будет проверка через API)");
-      // Здесь позже подключим Make для проверки
-    } else {
-      alert("QR-код неверный ❌");
-    }
-  });
+  if (yesBtn) {
+    yesBtn.addEventListener("click", function () {
+      // Пользователь выбрал "Да, у меня есть QR"
+      // (тут будет проверка QR, пока сделаем редирект для теста)
+      window.location.href = "chat.html"; 
+    });
+  }
 
-  noBtn.addEventListener("click", () => {
-    window.location.href = "https://your-gumroad-link.com"; 
-    // заменим ссылку на реальную
-  });
+  if (noBtn) {
+    noBtn.addEventListener("click", function () {
+      // Пользователь выбрал "Нет, у меня нет QR"
+      // (отправляем на оплату через Gumroad)
+      window.location.href = "https://gumroad.com/"; 
+    });
+  }
 });
