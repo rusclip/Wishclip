@@ -1,44 +1,14 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Поздравительный клип</title>
-  <style>
-    body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
-    h1 { margin-bottom: 20px; }
-    .buttons { margin-top: 30px; }
-    button {
-      padding: 15px 30px; margin: 10px; font-size: 18px; cursor: pointer;
-      border: none; border-radius: 8px; color: white; transition: background .2s;
-    }
-    #yesBtn { background: #4CAF50; }
-    #yesBtn:hover { background: #43a047; }
-    #noBtn { background: #f44336; }
-    #noBtn:hover { background: #e53935; }
-  </style>
-</head>
-<body>
-  <h1>🎶 Здесь вы можете создать поздравительный клип или признание в песне 🎶</h1>
-  <p>У вас есть QR-код для доступа?</p>
-
-  <div class="buttons">
-    <button id="yesBtn">Да</button>
-    <button id="noBtn">Нет</button>
-  </div>
-
-  <!-- Инлайновый JS, чтобы точно сработало -->
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const yesBtn = document.getElementById("yesBtn");
-      const noBtn  = document.getElementById("noBtn");
-
-      if (yesBtn) yesBtn.onclick = () => { window.location.href = "/chat.html"; };
-      if (noBtn)  noBtn.onclick  = () => { window.location.href = "https://gumroad.com/"; };
-
-      // На всякий случай лог в консоль:
-      console.log("Главная страница загружена, обработчики навешаны ✅");
-    });
-  </script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>WishClip</title>
+  </head>
+  <body>
+    <h1>🎶 Добро пожаловать в WishClip</h1>
+    <p>Здесь вы можете создать поздравительный клип или признание в песне!</p>
+    <p>У вас есть QR-код для активации?</p>
+    <button onclick="location.href='chat.html'">Да</button>
+    <button onclick="alert('Тогда купите доступ через Gumroad!')">Нет</button>
+  </body>
 </html>
