@@ -5,41 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Поздравительный клип</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 50px;
-    }
-    h1 {
-      margin-bottom: 20px;
-    }
-    .buttons {
-      margin-top: 30px;
-    }
+    body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
+    h1 { margin-bottom: 20px; }
+    .buttons { margin-top: 30px; }
     button {
-      padding: 15px 30px;
-      margin: 10px;
-      font-size: 18px;
-      cursor: pointer;
-      border: none;
-      border-radius: 8px;
-      background: #4CAF50;
-      color: white;
-      transition: background 0.3s;
+      padding: 15px 30px; margin: 10px; font-size: 18px; cursor: pointer;
+      border: none; border-radius: 8px; color: white; transition: background .2s;
     }
-    button:hover {
-      background: #45a049;
-    }
-    button#noBtn {
-      background: #f44336;
-    }
-    button#noBtn:hover {
-      background: #da190b;
-    }
+    #yesBtn { background: #4CAF50; }
+    #yesBtn:hover { background: #43a047; }
+    #noBtn { background: #f44336; }
+    #noBtn:hover { background: #e53935; }
   </style>
 </head>
 <body>
-  <h1>🎶 Сервис поможет вам создать песню и автоматически сделать музыкальный видеоклип с вашим участием или выбранным вами персонажем. 🎶</h1>
+  <h1>🎶 Здесь вы можете создать поздравительный клип или признание в песне 🎶</h1>
   <p>У вас есть QR-код для доступа?</p>
 
   <div class="buttons">
@@ -47,7 +27,18 @@
     <button id="noBtn">Нет</button>
   </div>
 
-  <!-- Подключаем JS внизу, чтобы кнопки уже существовали -->
-  <script src="src/script.js"></script>
+  <!-- Инлайновый JS, чтобы точно сработало -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const yesBtn = document.getElementById("yesBtn");
+      const noBtn  = document.getElementById("noBtn");
+
+      if (yesBtn) yesBtn.onclick = () => { window.location.href = "/chat.html"; };
+      if (noBtn)  noBtn.onclick  = () => { window.location.href = "https://gumroad.com/"; };
+
+      // На всякий случай лог в консоль:
+      console.log("Главная страница загружена, обработчики навешаны ✅");
+    });
+  </script>
 </body>
 </html>
