@@ -1,20 +1,24 @@
 document.addEventListener("DOMContentLoaded", function () {
+  console.log("JS подключён ✅");
+
   const yesBtn = document.getElementById("yesBtn");
   const noBtn = document.getElementById("noBtn");
 
   if (yesBtn) {
     yesBtn.addEventListener("click", function () {
-      // Пользователь выбрал "Да, у меня есть QR"
-      // (тут будет проверка QR, пока сделаем редирект для теста)
+      alert("Нажата кнопка: Да");
       window.location.href = "chat.html"; 
     });
+  } else {
+    console.error("Кнопка Да не найдена!");
   }
 
   if (noBtn) {
     noBtn.addEventListener("click", function () {
-      // Пользователь выбрал "Нет, у меня нет QR"
-      // (отправляем на оплату через Gumroad)
+      alert("Нажата кнопка: Нет");
       window.location.href = "https://gumroad.com/"; 
     });
+  } else {
+    console.error("Кнопка Нет не найдена!");
   }
 });
