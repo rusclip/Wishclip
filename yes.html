@@ -3,76 +3,49 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Enter QR Code</title>
+  <title>WishClip - Yes</title>
   <style>
     body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to right, #ffecd2, #fcb69f);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
+      font-family: sans-serif;
       text-align: center;
-    }
-    input {
-      padding: 10px;
-      font-size: 1rem;
-      margin-top: 20px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-    }
-    button {
-      margin-top: 20px;
-      padding: 12px 20px;
-      background: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 1rem;
-      cursor: pointer;
-    }
-    button:hover {
-      background: #45a049;
+      padding: 20px;
     }
     .lang-switch {
       position: absolute;
-      top: 20px;
-      right: 20px;
-      background: #fff;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      padding: 5px;
+      top: 10px;
+      right: 10px;
+    }
+    input {
+      margin: 15px;
+      padding: 10px;
+      font-size: 18px;
+      width: 250px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
   <div class="lang-switch">
-    <select id="language" onchange="changeLanguage()">
-      <option value="en" selected>English</option>
+    <select id="language" onchange="changeLanguage('yes')">
+      <option value="en">English</option>
       <option value="ru">Русский</option>
       <option value="kk">Қазақша</option>
     </select>
   </div>
 
   <h1 id="title">Enter Your QR Code</h1>
-  <input type="text" placeholder="Enter code here" id="input" />
+  <input type="text" id="input" placeholder="Enter code here" />
   <button id="submit">Submit</button>
 
+  <script src="lang.js"></script>
   <script>
-    const translations = {
-      en: { title: "Enter Your QR Code", placeholder: "Enter code here", submit: "Submit" },
-      ru: { title: "Введите ваш QR-код", placeholder: "Введите код здесь", submit: "Отправить" },
-      kk: { title: "QR-кодты енгізіңіз", placeholder: "Кодты осында енгізіңіз", submit: "Жіберу" }
+    window.onload = function() {
+      applyLanguage("yes");
     };
-
-    function changeLanguage() {
-      const lang = document.getElementById("language").value;
-      document.getElementById("title").textContent = translations[lang].title;
-      document.getElementById("input").placeholder = translations[lang].placeholder;
-      document.getElementById("submit").textContent = translations[lang].submit;
-    }
   </script>
 </body>
 </html>
