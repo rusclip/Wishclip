@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WishClip - No</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    .lang-switch {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="lang-switch">
+    <select id="language" onchange="changeLanguage('no')">
+      <option value="en">English</option>
+      <option value="ru">Русский</option>
+      <option value="kk">Қазақша</option>
+    </select>
+  </div>
+
+  <h1 id="title">Maybe next time!</h1>
+  <p id="subtitle">Come back when you are ready 🎵</p>
+
+  <script src="lang.js"></script>
+  <script>
+    window.onload = function() {
+      applyLanguage("no");
+    };
+  </script>
+</body>
+</html>
