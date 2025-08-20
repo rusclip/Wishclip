@@ -1,12 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>WishClip</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.js"></script>
-  </body>
-</html>
+import React from "react";
+import { useNavigate } from "react-router-dom";
+
+export default function Home() {
+  const navigate = useNavigate();
+
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-purple-600 via-pink-500 to-red-500 text-white p-6">
+      <h1 className="text-3xl md:text-4xl font-bold mb-6 text-center">
+        У вас есть QR?
+      </h1>
+
+      <div className="flex space-x-4">
+        {/* Кнопка ДА → Step1 */}
+        <button
+          onClick={() => navigate("/step1")}
+          className="px-6 py-3 rounded-xl bg-green-500 hover:bg-green-600 transition shadow-lg"
+        >
+          Да
+        </button>
+
+        {/* Кнопка НЕТ → Gumroad */}
+        <a
+          href="https://gumroad.com/your_product_link" 
+          target="_blank"
+          rel="noopener noreferrer"
+          className="px-6 py-3 rounded-xl bg-red-500 hover:bg-red-600 transition shadow-lg"
+        >
+          Нет
+        </a>
+      </div>
+    </div>
+  );
+}
