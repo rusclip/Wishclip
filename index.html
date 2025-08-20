@@ -4,26 +4,70 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WishClip</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: white;
+      text-align: center;
+      background: url("https://images.unsplash.com/photo-1525182008055-f88b95ff7980?auto=format&fit=crop&w=1600&q=80") no-repeat center center/cover;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      background: rgba(0,0,0,0.6);
+      padding: 20px;
+      border-radius: 12px;
+      max-width: 500px;
+    }
+
+    h1, p {
+      margin: 10px 0;
+    }
+
+    button {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background: #ff4081;
+      color: white;
+    }
+
+    button:hover {
+      background: #e73370;
+    }
+
+    select {
+      margin-top: 15px;
+      padding: 5px 10px;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+  </style>
 </head>
 <body>
-  <div class="lang-switch">
-    <select id="language" onchange="changeLanguage('index')">
-      <option value="en">English</option>
-      <option value="ru">Русский</option>
-      <option value="kk">Қазақша</option>
-    </select>
+  <div class="container">
+    <h1 id="title">Welcome!</h1>
+    <p id="subtitle">Do you want to create a video?</p>
+    <div>
+      <a href="yes.html"><button id="yes">Yes</button></a>
+      <a href="no.html"><button id="no">No</button></a>
+    </div>
+    <select id="language" onchange="changeLanguage('index')"></select>
   </div>
-
-  <h1 id="title">Welcome to WishClip!</h1>
-  <p id="subtitle">Do you want to create your personalized music video?</p>
-  <button id="yes" onclick="location.href='yes.html'">Yes</button>
-  <button id="no" onclick="location.href='no.html'">No</button>
 
   <script src="lang.js"></script>
   <script>
-    window.onload = function() {
+    loadTranslations().then(() => {
       applyLanguage("index");
-    };
+    });
   </script>
 </body>
 </html>
