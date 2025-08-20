@@ -7,67 +7,71 @@
   <style>
     body {
       margin: 0;
+      padding: 0;
       font-family: Arial, sans-serif;
-      color: white;
-      text-align: center;
-      background: url("https://images.unsplash.com/photo-1525182008055-f88b95ff7980?auto=format&fit=crop&w=1600&q=80") no-repeat center center/cover;
       height: 100vh;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
+      background: url("https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80") no-repeat center center/cover;
+      color: white;
+      text-align: center;
     }
-
     .container {
-      background: rgba(0,0,0,0.6);
-      padding: 20px;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 30px;
       border-radius: 12px;
-      max-width: 500px;
     }
-
-    h1, p {
-      margin: 10px 0;
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
     }
-
-    button {
-      margin: 10px;
+    .buttons {
+      margin-top: 20px;
+    }
+    .buttons a {
+      text-decoration: none;
+      margin: 0 10px;
       padding: 10px 20px;
-      font-size: 18px;
-      border: none;
       border-radius: 8px;
-      cursor: pointer;
+      font-size: 1rem;
+      font-weight: bold;
       background: #ff4081;
       color: white;
+      transition: 0.3s;
     }
-
-    button:hover {
-      background: #e73370;
+    .buttons a:hover {
+      background: #e91e63;
     }
-
-    select {
-      margin-top: 15px;
-      padding: 5px 10px;
-      border-radius: 8px;
-      font-size: 16px;
+    .language-select {
+      margin-top: 20px;
+      padding: 8px;
+      border-radius: 6px;
+      border: none;
+      font-size: 1rem;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1 id="title">Welcome!</h1>
-    <p id="subtitle">Do you want to create a video?</p>
-    <div>
-      <a href="yes.html"><button id="yes">Yes</button></a>
-      <a href="no.html"><button id="no">No</button></a>
+    <h1 data-translate="main_question">Do you want to create a musical greeting?</h1>
+    <div class="buttons">
+      <a href="yes.html" data-translate="yes">Yes</a>
+      <a href="no.html" data-translate="no">No</a>
     </div>
-    <select id="language" onchange="changeLanguage('index')"></select>
+    <div>
+      <select id="languageSelect" class="language-select">
+        <option value="en" selected>English</option>
+        <option value="ru">Русский</option>
+        <option value="es">Español</option>
+        <option value="de">Deutsch</option>
+        <option value="fr">Français</option>
+        <option value="zh">中文</option>
+        <option value="ja">日本語</option>
+        <option value="ar">العربية</option>
+      </select>
+    </div>
   </div>
-
   <script src="lang.js"></script>
-  <script>
-    loadTranslations().then(() => {
-      applyLanguage("index");
-    });
-  </script>
 </body>
 </html>
