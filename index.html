@@ -12,17 +12,32 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
-      background: url("https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4") no-repeat center center / cover;
+      background: url("https://images.unsplash.com/photo-1507874457470-272b3c8d8ee2") no-repeat center center / cover;
       color: white;
       text-align: center;
     }
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+    }
     .container {
-      background: rgba(0,0,0,0.6);
+      position: relative;
+      z-index: 1;
+      max-width: 700px;
       padding: 30px;
       border-radius: 15px;
     }
     h1 {
       margin-bottom: 20px;
+      font-size: 2rem;
+    }
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
     }
     .btn {
       background: #ff4081;
@@ -48,6 +63,8 @@
   </style>
 </head>
 <body>
+  <div class="overlay"></div>
+
   <select id="language" class="lang-select">
     <option value="en">English</option>
     <option value="ru">Русский</option>
@@ -55,7 +72,14 @@
   </select>
 
   <div class="container">
-    <h1 id="question">Do you have a QR code?</h1>
+    <h1 id="title">Welcome to WishClip</h1>
+    <p id="description">
+      Create personalized music video greetings with just one click.  
+      If you already have a QR code, you can check it here.  
+      If not, you can purchase one easily.
+    </p>
+
+    <h2 id="question">Do you have a QR code?</h2>
     <button class="btn" id="yesBtn">Yes</button>
     <button class="btn" id="noBtn">No</button>
   </div>
@@ -63,16 +87,22 @@
   <script>
     const translations = {
       en: {
+        title: "Welcome to WishClip",
+        description: "Create personalized music video greetings with just one click. If you already have a QR code, you can check it here. If not, you can purchase one easily.",
         question: "Do you have a QR code?",
         yes: "Yes",
         no: "No"
       },
       ru: {
+        title: "Добро пожаловать в WishClip",
+        description: "Создайте персональное музыкальное видеопоздравление всего в один клик. Если у вас уже есть QR-код, вы можете проверить его здесь. Если нет — вы можете легко приобрести его.",
         question: "У вас есть QR-код?",
         yes: "Да",
         no: "Нет"
       },
       kz: {
+        title: "WishClip-ке қош келдіңіз",
+        description: "Жеке музыкалық бейнеқұттықтауды бір-ақ басумен жасаңыз. Егер сізде QR-код болса, оны осында тексеруге болады. Егер жоқ болса — оңай сатып алуға болады.",
         question: "Сізде QR-код бар ма?",
         yes: "Иә",
         no: "Жоқ"
@@ -80,12 +110,16 @@
     };
 
     const langSelect = document.getElementById("language");
+    const title = document.getElementById("title");
+    const description = document.getElementById("description");
     const question = document.getElementById("question");
     const yesBtn = document.getElementById("yesBtn");
     const noBtn = document.getElementById("noBtn");
 
     function setLanguage(lang) {
       const t = translations[lang] || translations.en;
+      title.textContent = t.title;
+      description.textContent = t.description;
       question.textContent = t.question;
       yesBtn.textContent = t.yes;
       noBtn.textContent = t.no;
