@@ -1,34 +1,116 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WishClip</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: url("https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4") no-repeat center center / cover;
+      color: white;
+      text-align: center;
+    }
+    .container {
+      background: rgba(0,0,0,0.6);
+      padding: 30px;
+      border-radius: 15px;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    .btn {
+      background: #ff4081;
+      border: none;
+      padding: 12px 25px;
+      margin: 10px;
+      font-size: 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      color: white;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      background: #e91e63;
+    }
+    .lang-select {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      padding: 8px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <select id="language" class="lang-select">
+    <option value="en">English</option>
+    <option value="ru">Русский</option>
+    <option value="kz">Қазақша</option>
+  </select>
 
-export default function Home() {
-  const navigate = useNavigate();
+  <div class="container">
+    <h1 id="question">Do you have a QR code?</h1>
+    <button class="btn" id="yesBtn">Yes</button>
+    <button class="btn" id="noBtn">No</button>
+  </div>
 
-  return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-purple-600 via-pink-500 to-red-500 text-white p-6">
-      <h1 className="text-3xl md:text-4xl font-bold mb-6 text-center">
-        У вас есть QR?
-      </h1>
+  <script>
+    const translations = {
+      en: {
+        question: "Do you have a QR code?",
+        yes: "Yes",
+        no: "No"
+      },
+      ru: {
+        question: "У вас есть QR-код?",
+        yes: "Да",
+        no: "Нет"
+      },
+      kz: {
+        question: "Сізде QR-код бар ма?",
+        yes: "Иә",
+        no: "Жоқ"
+      }
+    };
 
-      <div className="flex space-x-4">
-        {/* Кнопка ДА → Step1 */}
-        <button
-          onClick={() => navigate("/step1")}
-          className="px-6 py-3 rounded-xl bg-green-500 hover:bg-green-600 transition shadow-lg"
-        >
-          Да
-        </button>
+    const langSelect = document.getElementById("language");
+    const question = document.getElementById("question");
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
 
-        {/* Кнопка НЕТ → Gumroad */}
-        <a
-          href="https://gumroad.com/your_product_link" 
-          target="_blank"
-          rel="noopener noreferrer"
-          className="px-6 py-3 rounded-xl bg-red-500 hover:bg-red-600 transition shadow-lg"
-        >
-          Нет
-        </a>
-      </div>
-    </div>
-  );
-}
+    function setLanguage(lang) {
+      const t = translations[lang] || translations.en;
+      question.textContent = t.question;
+      yesBtn.textContent = t.yes;
+      noBtn.textContent = t.no;
+      langSelect.value = lang;
+    }
+
+    // Автоопределение языка
+    const userLang = navigator.language.slice(0,2);
+    if (translations[userLang]) {
+      setLanguage(userLang);
+    } else {
+      setLanguage("en"); // дефолт — английский
+    }
+
+    langSelect.addEventListener("change", (e) => {
+      setLanguage(e.target.value);
+    });
+
+    yesBtn.addEventListener("click", () => {
+      window.location.href = "qr.html"; // страница для проверки QR
+    });
+
+    noBtn.addEventListener("click", () => {
+      window.location.href = "https://gumroad.com/"; // ссылка на покупку
+    });
+  </script>
+</body>
+</html>
