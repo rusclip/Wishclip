@@ -1,19 +1,19 @@
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 
 function Home() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-purple-500 to-pink-500 text-white">
-      <h1 className="text-4xl font-bold mb-8">Welcome to WishClip</h1>
-      <div className="space-x-4">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white">
+      <h1 className="text-3xl font-bold mb-4">Привет! Хочешь создать свой клип?</h1>
+      <div className="flex gap-4">
         <Link
           to="/step1"
-          className="px-6 py-3 bg-white text-purple-600 rounded-xl shadow hover:bg-gray-100"
+          className="px-6 py-3 bg-green-600 hover:bg-green-700 rounded-lg"
         >
           Да
         </Link>
         <Link
-          to="/step2"
-          className="px-6 py-3 bg-white text-purple-600 rounded-xl shadow hover:bg-gray-100"
+          to="/no"
+          className="px-6 py-3 bg-red-600 hover:bg-red-700 rounded-lg"
         >
           Нет
         </Link>
@@ -23,21 +23,33 @@ function Home() {
 }
 
 function Step1() {
-  return <h2 className="text-2xl text-center mt-20">Step 1 page</h2>;
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen bg-blue-900 text-white">
+      <h1 className="text-2xl font-bold mb-4">Шаг 1: Загрузи фото</h1>
+      <Link to="/" className="mt-4 underline">
+        ← Назад
+      </Link>
+    </div>
+  );
 }
 
-function Step2() {
-  return <h2 className="text-2xl text-center mt-20">Step 2 page</h2>;
+function NoPage() {
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-800 text-white">
+      <h1 className="text-2xl font-bold mb-4">Жаль! Может, в следующий раз 😊</h1>
+      <Link to="/" className="mt-4 underline">
+        ← Назад
+      </Link>
+    </div>
+  );
 }
 
 export default function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/step1" element={<Step1 />} />
-        <Route path="/step2" element={<Step2 />} />
-      </Routes>
-    </Router>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/step1" element={<Step1 />} />
+      <Route path="/no" element={<NoPage />} />
+    </Routes>
   );
 }
