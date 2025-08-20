@@ -1,6 +1,5 @@
 // lang.js
 
-// Словарь переводов
 const translations = {
   en: {
     index: {
@@ -55,14 +54,11 @@ const translations = {
   }
 };
 
-// Применяем перевод
 function applyLanguage(page) {
   const savedLang = localStorage.getItem("lang") || "en";
   const t = translations[savedLang][page];
-
   if (!t) return;
 
-  // Общая логика замены текста
   if (document.getElementById("title")) document.getElementById("title").textContent = t.title;
   if (document.getElementById("subtitle")) document.getElementById("subtitle").textContent = t.subtitle;
   if (document.getElementById("yes")) document.getElementById("yes").textContent = t.yes;
@@ -70,13 +66,11 @@ function applyLanguage(page) {
   if (document.getElementById("input")) document.getElementById("input").placeholder = t.placeholder;
   if (document.getElementById("submit")) document.getElementById("submit").textContent = t.submit;
 
-  // выставляем select
   if (document.getElementById("language")) {
     document.getElementById("language").value = savedLang;
   }
 }
 
-// Смена языка
 function changeLanguage(page) {
   const lang = document.getElementById("language").value;
   localStorage.setItem("lang", lang);
