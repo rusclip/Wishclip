@@ -7,12 +7,13 @@ async function loadTranslations() {
   const res = await fetch("/translations.json");
   translations = await res.json();
   currentLang = detectDefaultLanguage();
+  buildLanguageSelector(); // генерируем список языков
 }
 
 // Определяем язык
 function detectDefaultLanguage() {
   let savedLang = localStorage.getItem("lang");
-  if (savedLang) return savedLang;
+  if (savedLang && translations[savedLang]) return savedLang;
 
   let defaultLang = "en";
   const browserLang = navigator.language.slice(0, 2).toLowerCase();
@@ -22,6 +23,22 @@ function detectDefaultLanguage() {
 
   localStorage.setItem("lang", defaultLang);
   return defaultLang;
+}
+
+// Автоматически строим список языков
+function buildLanguageSelector() {
+  const select = document.getElementById("language");
+  if (!select) return;
+
+  select.innerHTML = ""; // очищаем старые опции
+
+  Object.keys(translations).forEach((lang) => {
+    const option = document.createElement("option");
+    option.value = lang;
+    option.textContent = lang.toUpperCase();
+    if (lang === currentLang) option.selected = true;
+    select.appendChild(option);
+  });
 }
 
 // Применяем перевод
@@ -43,7 +60,9 @@ function applyLanguage(page) {
 
 // Смена языка
 function changeLanguage(page) {
-  const lang = document.getElementById("language").value;
+  const select = document.getElementById("language");
+  if (!select) return;
+  const lang = select.value;
   currentLang = lang;
   localStorage.setItem("lang", lang);
   applyLanguage(page);
