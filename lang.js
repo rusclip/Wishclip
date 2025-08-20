@@ -54,9 +54,29 @@ const translations = {
   }
 };
 
+function detectDefaultLanguage() {
+  // если язык уже сохранён — используем его
+  let savedLang = localStorage.getItem("lang");
+  if (savedLang) return savedLang;
+
+  // по умолчанию — английский
+  let defaultLang = "en";
+
+  // определяем язык браузера
+  const browserLang = navigator.language.slice(0, 2).toLowerCase();
+
+  if (["en", "ru", "kk"].includes(browserLang)) {
+    defaultLang = browserLang;
+  }
+
+  // сохраняем выбор
+  localStorage.setItem("lang", defaultLang);
+  return defaultLang;
+}
+
 function applyLanguage(page) {
-  const savedLang = localStorage.getItem("lang") || "en";
-  const t = translations[savedLang][page];
+  const currentLang = detectDefaultLanguage();
+  const t = translations[currentLang][page];
   if (!t) return;
 
   if (document.getElementById("title")) document.getElementById("title").textContent = t.title;
@@ -67,7 +87,7 @@ function applyLanguage(page) {
   if (document.getElementById("submit")) document.getElementById("submit").textContent = t.submit;
 
   if (document.getElementById("language")) {
-    document.getElementById("language").value = savedLang;
+    document.getElementById("language").value = currentLang;
   }
 }
 
