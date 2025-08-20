@@ -6,46 +6,60 @@
   <title>WishClip - Yes</title>
   <style>
     body {
-      font-family: sans-serif;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: white;
       text-align: center;
+      background: url("https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1600&q=80") no-repeat center center/cover;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      background: rgba(0,0,0,0.6);
       padding: 20px;
+      border-radius: 12px;
+      max-width: 500px;
     }
-    .lang-switch {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-    }
-    input {
-      margin: 15px;
+
+    input, button, select {
+      margin: 10px;
       padding: 10px;
-      font-size: 18px;
-      width: 250px;
+      border-radius: 8px;
+      border: none;
+      font-size: 16px;
     }
+
     button {
-      padding: 10px 20px;
-      font-size: 18px;
+      background: #4caf50;
+      color: white;
       cursor: pointer;
+    }
+
+    button:hover {
+      background: #43a047;
     }
   </style>
 </head>
 <body>
-  <div class="lang-switch">
-    <select id="language" onchange="changeLanguage('yes')">
-      <option value="en">English</option>
-      <option value="ru">Русский</option>
-      <option value="kk">Қазақша</option>
-    </select>
+  <div class="container">
+    <h1 id="title">Upload your photo</h1>
+    <input id="input" type="file" accept="image/*">
+    <button id="submit">Submit</button>
+    <br>
+    <a href="index.html"><button>⬅ Back</button></a>
+    <br>
+    <select id="language" onchange="changeLanguage('yes')"></select>
   </div>
-
-  <h1 id="title">Enter Your QR Code</h1>
-  <input type="text" id="input" placeholder="Enter code here" />
-  <button id="submit">Submit</button>
 
   <script src="lang.js"></script>
   <script>
-    window.onload = function() {
+    loadTranslations().then(() => {
       applyLanguage("yes");
-    };
+    });
   </script>
 </body>
 </html>
