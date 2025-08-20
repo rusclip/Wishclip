@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enter QR Code</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to right, #ffecd2, #fcb69f);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+    }
+    input {
+      padding: 10px;
+      font-size: 1rem;
+      margin-top: 20px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    button {
+      margin-top: 20px;
+      padding: 12px 20px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #45a049;
+    }
+    .lang-switch {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="lang-switch">
+    <select id="language" onchange="changeLanguage()">
+      <option value="en" selected>English</option>
+      <option value="ru">Русский</option>
+      <option value="kk">Қазақша</option>
+    </select>
+  </div>
+
+  <h1 id="title">Enter Your QR Code</h1>
+  <input type="text" placeholder="Enter code here" id="input" />
+  <button id="submit">Submit</button>
+
+  <script>
+    const translations = {
+      en: { title: "Enter Your QR Code", placeholder: "Enter code here", submit: "Submit" },
+      ru: { title: "Введите ваш QR-код", placeholder: "Введите код здесь", submit: "Отправить" },
+      kk: { title: "QR-кодты енгізіңіз", placeholder: "Кодты осында енгізіңіз", submit: "Жіберу" }
+    };
+
+    function changeLanguage() {
+      const lang = document.getElementById("language").value;
+      document.getElementById("title").textContent = translations[lang].title;
+      document.getElementById("input").placeholder = translations[lang].placeholder;
+      document.getElementById("submit").textContent = translations[lang].submit;
+    }
+  </script>
+</body>
+</html>
