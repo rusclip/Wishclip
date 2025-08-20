@@ -1,77 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WishClip</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: url("https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80") no-repeat center center/cover;
-      color: white;
-      text-align: center;
-    }
-    .container {
-      background: rgba(0, 0, 0, 0.6);
-      padding: 30px;
-      border-radius: 12px;
-    }
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 20px;
-    }
-    .buttons {
-      margin-top: 20px;
-    }
-    .buttons a {
-      text-decoration: none;
-      margin: 0 10px;
-      padding: 10px 20px;
-      border-radius: 8px;
-      font-size: 1rem;
-      font-weight: bold;
-      background: #ff4081;
-      color: white;
-      transition: 0.3s;
-    }
-    .buttons a:hover {
-      background: #e91e63;
-    }
-    .language-select {
-      margin-top: 20px;
-      padding: 8px;
-      border-radius: 6px;
-      border: none;
-      font-size: 1rem;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <h1 data-translate="main_question">Do you want to create a musical greeting?</h1>
-    <div class="buttons">
-      <a href="yes.html" data-translate="yes">Yes</a>
-      <a href="no.html" data-translate="no">No</a>
-    </div>
-    <div>
-      <select id="languageSelect" class="language-select">
-        <option value="en" selected>English</option>
-        <option value="ru">Русский</option>
-        <option value="es">Español</option>
-        <option value="de">Deutsch</option>
-        <option value="fr">Français</option>
-        <option value="zh">中文</option>
-        <option value="ja">日本語</option>
-        <option value="ar">العربية</option>
-      </select>
-    </div>
-  </div>
-  <script src="lang.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WishClip</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
 </html>
