@@ -6,34 +6,46 @@
   <title>WishClip - No</title>
   <style>
     body {
-      font-family: sans-serif;
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: white;
       text-align: center;
-      padding: 20px;
+      background: url("https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1600&q=80") no-repeat center center/cover;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
-    .lang-switch {
-      position: absolute;
-      top: 10px;
-      right: 10px;
+
+    .container {
+      background: rgba(0,0,0,0.6);
+      padding: 20px;
+      border-radius: 12px;
+      max-width: 500px;
+    }
+
+    select {
+      margin-top: 15px;
+      padding: 5px 10px;
+      border-radius: 8px;
+      font-size: 16px;
     }
   </style>
 </head>
 <body>
-  <div class="lang-switch">
-    <select id="language" onchange="changeLanguage('no')">
-      <option value="en">English</option>
-      <option value="ru">Русский</option>
-      <option value="kk">Қазақша</option>
-    </select>
+  <div class="container">
+    <h1 id="title">Maybe next time!</h1>
+    <a href="index.html"><button id="submit">⬅ Back</button></a>
+    <br>
+    <select id="language" onchange="changeLanguage('no')"></select>
   </div>
-
-  <h1 id="title">Maybe next time!</h1>
-  <p id="subtitle">Come back when you are ready 🎵</p>
 
   <script src="lang.js"></script>
   <script>
-    window.onload = function() {
+    loadTranslations().then(() => {
       applyLanguage("no");
-    };
+    });
   </script>
 </body>
 </html>
