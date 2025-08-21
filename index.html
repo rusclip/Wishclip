@@ -1,137 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Wishclip</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WishClip</title>
   <style>
     body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      background: url("https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1200&q=80") no-repeat center center/cover;
-      color: white;
-      text-align: center;
+      margin: 0; font-family: Arial, sans-serif;
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; height: 100vh;
+      background: url("https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1200&q=80")
+                  center/cover no-repeat;
     }
-
-    .overlay {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.6);
+    body::after {
+      content: ""; position: absolute; inset: 0;
+      background: rgba(0, 0, 0, 0.5);
       z-index: -1;
     }
-
+    .lang-switch {
+      position: absolute; top: 20px; right: 20px;
+    }
+    .lang-switch button {
+      background: transparent; border: 1px solid white;
+      color: white; margin-left: 5px;
+      padding: 5px 10px; border-radius: 5px;
+      cursor: pointer;
+    }
+    .lang-switch button:hover { background: rgba(255,255,255,0.2); }
     h1 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
+      color: white; font-size: 2.5rem; margin-bottom: 1rem;
+      z-index:1;
     }
-
     .buttons {
-      margin-top: 1.5rem;
+      z-index:1; display:flex; gap: 1rem;
     }
-
     button {
       padding: 0.7rem 1.5rem;
-      font-size: 1rem;
-      margin: 0 0.5rem;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: 0.3s;
+      font-size:1rem; border:none; border-radius:8px;
+      color: white; cursor:pointer;
     }
-
-    #yesBtn {
-      background: #4caf50;
-      color: white;
-    }
-
-    #noBtn {
-      background: #f44336;
-      color: white;
-    }
-
-    button:hover {
-      opacity: 0.8;
-    }
-
-    .lang-switch {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-    }
-
-    .lang-switch button {
-      background: transparent;
-      border: 1px solid white;
-      color: white;
-      margin-left: 5px;
-      padding: 5px 10px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .lang-switch button:hover {
-      background: rgba(255,255,255,0.2);
-    }
+    #yesBtn { background: #4caf50; }
+    #noBtn { background: #f44336; }
+    button:hover { opacity: 0.8; }
   </style>
 </head>
 <body>
-  <div class="overlay"></div>
-
   <div class="lang-switch">
-    <button onclick="setLanguage('en')">🇬🇧 EN</button>
-    <button onclick="setLanguage('ru')">🇷🇺 RU</button>
+    <button onclick="setLanguage('en')">EN</button>
+    <button onclick="setLanguage('ru')">RU</button>
   </div>
-
-  <h1 id="title">Do you want to create a song?</h1>
+  <h1 id="title">Сервис поможет вам создать песню...</h1>
   <div class="buttons">
-    <button id="yesBtn">Yes</button>
-    <button id="noBtn">No</button>
+    <button id="yesBtn">Да</button>
+    <button id="noBtn">Нет</button>
   </div>
-
   <script>
-    const messages = {
+    const texts = {
       en: {
-        title: "Do you want to create a song?",
+        title: "This service helps you create a song and automatically make a music video.",
         yes: "Yes",
-        no: "No",
+        no: "No"
       },
       ru: {
-        title: "Хочешь создать песню?",
+        title: "Сервис поможет вам создать песню и автоматически сделать музыкальный видеоклип.",
         yes: "Да",
-        no: "Нет",
-      },
+        no: "Нет"
+      }
     };
-
-    function setLanguage(lang) {
-      localStorage.setItem("lang", lang);
-      applyLanguage(lang);
+    function applyLang(lang) {
+      document.getElementById("title").textContent = texts[lang].title;
+      document.getElementById("yesBtn").textContent = texts[lang].yes;
+      document.getElementById("noBtn").textContent = texts[lang].no;
     }
-
-    function applyLanguage(lang) {
-      document.getElementById("title").innerText = messages[lang].title;
-      document.getElementById("yesBtn").innerText = messages[lang].yes;
-      document.getElementById("noBtn").innerText = messages[lang].no;
+    function setLanguage(lang) {
+      localStorage.setItem("wishclip_lang", lang);
+      applyLang(lang);
     }
 
     document.addEventListener("DOMContentLoaded", () => {
-      const savedLang = localStorage.getItem("lang");
-      const browserLang = navigator.language.startsWith("ru") ? "ru" : "en";
-      const lang = savedLang || browserLang;
-      applyLanguage(lang);
+      const saved = localStorage.getItem("wishclip_lang");
+      const browser = navigator.language && navigator.language.startsWith("ru") ? "ru" : "en";
+      const lang = saved || browser;
+      applyLang(lang);
 
       document.getElementById("yesBtn").addEventListener("click", () => {
-        window.location.href = "/qr"; // ✅ теперь ведёт на проверку кода
+        window.location.href = "/qr.html";
       });
-
       document.getElementById("noBtn").addEventListener("click", () => {
-        window.location.href = "https://gumroad.com/";
+        window.location.href = "https://gumroad.com/your_product_link";
       });
     });
   </script>
