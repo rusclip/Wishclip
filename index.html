@@ -1,26 +1,139 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>WishClip — Чат</title>
+  <title>Wishclip</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: url("https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1200&q=80") no-repeat center center/cover;
+      color: white;
+      text-align: center;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      z-index: -1;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .buttons {
+      margin-top: 1.5rem;
+    }
+
+    button {
+      padding: 0.7rem 1.5rem;
+      font-size: 1rem;
+      margin: 0 0.5rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    #yesBtn {
+      background: #4caf50;
+      color: white;
+    }
+
+    #noBtn {
+      background: #f44336;
+      color: white;
+    }
+
+    button:hover {
+      opacity: 0.8;
+    }
+
+    .lang-switch {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .lang-switch button {
+      background: transparent;
+      border: 1px solid white;
+      color: white;
+      margin-left: 5px;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .lang-switch button:hover {
+      background: rgba(255,255,255,0.2);
+    }
+  </style>
 </head>
 <body>
-  <div id="root"></div>
+  <div class="overlay"></div>
 
-  <!-- React и ReactDOM -->
-  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
-  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <div class="lang-switch">
+    <button onclick="setLanguage('en')">🇬🇧 EN</button>
+    <button onclick="setLanguage('ru')">🇷🇺 RU</button>
+  </div>
 
-  <!-- Компонент Chat -->
-  <script type="text/babel" src="./components/Chat.jsx"></script>
-  <link rel="stylesheet" href="./components/Chat.css" />
+  <h1 id="title">Do you want to create a song?</h1>
+  <div class="buttons">
+    <button id="yesBtn">Yes</button>
+    <button id="noBtn">No</button>
+  </div>
 
-  <!-- Рендерим в #root -->
-  <script type="text/babel">
-    const root = ReactDOM.createRoot(document.getElementById("root"));
-    root.render(<Chat />);
+  <script>
+    const messages = {
+      en: {
+        title: "Do you want to create a song?",
+        yes: "Yes",
+        no: "No",
+      },
+      ru: {
+        title: "Хочешь создать песню?",
+        yes: "Да",
+        no: "Нет",
+      },
+    };
+
+    function setLanguage(lang) {
+      localStorage.setItem("lang", lang);
+      applyLanguage(lang);
+    }
+
+    function applyLanguage(lang) {
+      document.getElementById("title").innerText = messages[lang].title;
+      document.getElementById("yesBtn").innerText = messages[lang].yes;
+      document.getElementById("noBtn").innerText = messages[lang].no;
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const savedLang = localStorage.getItem("lang");
+      const browserLang = navigator.language.startsWith("ru") ? "ru" : "en";
+      const lang = savedLang || browserLang;
+      applyLanguage(lang);
+
+      document.getElementById("yesBtn").addEventListener("click", () => {
+        window.location.href = "/qr"; // ✅ теперь ведёт на проверку кода
+      });
+
+      document.getElementById("noBtn").addEventListener("click", () => {
+        window.location.href = "https://gumroad.com/";
+      });
+    });
   </script>
 </body>
 </html>
