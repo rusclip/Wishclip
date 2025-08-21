@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./Chat.css"; // ✅ подключаем стили
+import "./Chat.css";
 
 export default function Chat() {
   const [messages, setMessages] = useState([]);
@@ -23,8 +23,11 @@ export default function Chat() {
       const aiMessage = { sender: "ai", text: data.reply };
       setMessages((prev) => [...prev, aiMessage]);
     } catch (err) {
-      console.error(err);
-      const errorMessage = { sender: "ai", text: "Ошибка соединения с сервером." };
+      console.error("Ошибка:", err);
+      const errorMessage = {
+        sender: "ai",
+        text: "⚠️ Ошибка соединения с сервером.",
+      };
       setMessages((prev) => [...prev, errorMessage]);
     }
   };
@@ -33,18 +36,22 @@ export default function Chat() {
     <div className="chat-container">
       <div className="messages">
         {messages.map((msg, idx) => (
-          <div key={idx} className={msg.sender === "user" ? "user-msg" : "ai-msg"}>
+          <div
+            key={idx}
+            className={msg.sender === "user" ? "user-msg" : "ai-msg"}
+          >
             {msg.text}
           </div>
         ))}
       </div>
-      <div style={{ display: "flex" }}>
+
+      <div className="input-row">
         <input
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-          placeholder="Напиши свой ответ..."
+          placeholder="Напиши сообщение..."
         />
         <button onClick={sendMessage}>Отправить</button>
       </div>
