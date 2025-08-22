@@ -1,46 +1,47 @@
-import { useState } from "react";
+// api/validate-qr.js
+// Vercel Serverless Function для проверки валидности QR-кода
 
-export default function QrPage() {
-  const [qrCode, setQrCode] = useState("");
-  const [status, setStatus] = useState(null); // null | "valid" | "invalid" | "loading"
+import { createClient } from '@supabase/supabase-js';
 
-  const handleCheckQr = async () => {
-    if (!qrCode) return;
-    setStatus("loading");
+// Инициализация клиента Supabase
+const supabase = createClient(
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_KEY
+);
 
-    try {
-      const res = await fetch(`/api/validate-qr?code=${encodeURIComponent(qrCode)}`);
-      const data = await res.json();
+export default async function handler(req, res) {
+  // Проверяем метод запроса
+  if (req.method !== 'GET') {
+    return res.status(405).json({ error: 'Метод не поддерживается' });
+  }
 
-      if (data.valid) {
-        setStatus("valid");
-        // Переход к GPT-чату
-        window.location.href = "/chat"; 
-      } else {
-        setStatus("invalid");
-      }
-    } catch (err) {
-      console.error(err);
-      setStatus("invalid");
+  // Получаем код из query-параметра
+  const { code } = req.query;
+
+  // Проверяем, передан ли код
+  if (!code || typeof code !== 'string') {
+    return res.status(400).json({ valid: false, error: 'QR-код не указан или имеет неверный формат' });
+  }
+
+  try {
+    // Запрос к Supabase: ищем QR-код со статусом 'paid'
+    const { data, error } = await supabase
+      .from('qrcodes')
+      .select('status')
+      .eq('qr_code', code.trim())
+      .single(); // single() — ожидаем одну запись
+
+    // Если ошибка или запись не найдена, или статус не 'paid'
+    if (error || !data || data.status !== 'paid') {
+      return res.json({ valid: false });
     }
-  };
 
-  return (
-    <div style={{ textAlign: "center", marginTop: "50px" }}>
-      <h1>Enter or Scan your QR code</h1>
-      <input
-        type="text"
-        value={qrCode}
-        onChange={(e) => setQrCode(e.target.value)}
-        placeholder="Enter QR code"
-        style={{ padding: "10px", fontSize: "16px", width: "250px", marginRight: "10px" }}
-      />
-      <button onClick={handleCheckQr} style={{ padding: "10px 20px", fontSize: "16px" }}>
-        Check
-      </button>
+    // QR-код валиден
+    return res.json({ valid: true });
 
-      {status === "loading" && <p>Checking...</p>}
-      {status === "invalid" && <p style={{ color: "red" }}>Invalid or used QR code</p>}
-    </div>
-  );
+  } catch (err) {
+    // Обработка ошибок (например, проблемы с подключением к Supabase)
+    console.error('Ошибка при проверке QR-кода:', err);
+    return res.status(500).json({ valid: false, error: 'Внутренняя ошибка сервера' });
+  }
 }
