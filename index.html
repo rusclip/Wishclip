@@ -1,234 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>WishClip — AI Video Greetings</title>
-  <style>
-    :root{
-      --bg: rgba(0,0,0,.55);
-      --card: rgba(255,255,255,.08);
-      --border: rgba(255,255,255,.2);
-      --text: #fff;
-      --accent: #7c4dff;
-      --accent-2: #00c2ff;
-      --radius: 16px;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
-      color:var(--text); font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
-      background:url("https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=1600&q=80") center/cover no-repeat fixed;
-      position:relative;
-    }
-    body::before{
-      content:""; position:fixed; inset:0; background:var(--bg); backdrop-filter:saturate(110%) blur(1px);
-    }
-    .wrap{
-      position:relative; z-index:1; width:min(720px,92vw);
-      padding:32px 24px; border:1px solid var(--border); border-radius:var(--radius);
-      background:var(--card); box-shadow:0 20px 60px rgba(0,0,0,.35);
-      text-align:center;
-    }
-    .brand{display:flex; gap:10px; align-items:center; justify-content:center; margin-bottom:12px}
-    .logo{
-      width:42px;height:42px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));
-      display:grid;place-items:center;color:#fff;font-weight:800
-    }
-    h1{margin:.25rem 0 .5rem; font-size:clamp(22px,4.2vw,34px); line-height:1.15}
-    p.lead{opacity:.92; margin:.25rem auto 1.25rem; max-width:58ch; font-size:clamp(14px,2.8vw,18px)}
-    .card{
-      margin:18px auto 0; padding:18px; border:1px dashed var(--border); border-radius:var(--radius);
-      background:rgba(255,255,255,.05)
-    }
-    .question{font-weight:600; margin-bottom:14px; font-size:clamp(15px,3vw,18px)}
-    .actions{display:flex; gap:10px; justify-content:center; flex-wrap:wrap}
-    button,a.btn{
-      appearance:none; border:none; cursor:pointer; border-radius:12px; padding:12px 18px; font-weight:600;
-      color:#0b1020; background:#fff; text-decoration:none; transition:.2s transform,.2s opacity
-    }
-    .btn-primary{background:linear-gradient(135deg,var(--accent),#9b6bff); color:#fff}
-    .btn-secondary{background:rgba(255,255,255,.9)}
-    .btn-primary:hover,.btn-secondary:hover{opacity:.9; transform:translateY(-1px)}
-    .lang{
-      position:absolute; top:14px; right:14px; display:flex; gap:8px; align-items:center; z-index:2
-    }
-    .lang select{
-      background:rgba(0,0,0,.35); color:#fff; border:1px solid var(--border); border-radius:10px;
-      padding:8px 10px; font-size:14px
-    }
-    .foot{margin-top:14px; opacity:.7; font-size:12.5px}
-  </style>
-</head>
-<body>
-  <!-- Language switcher -->
-  <div class="lang">
-    <label for="langSelect" style="font-size:12px;opacity:.8">Language:</label>
-    <select id="langSelect">
-      <option value="en">EN — English</option>
-      <option value="es">ES — Español</option>
-      <option value="fr">FR — Français</option>
-      <option value="de">DE — Deutsch</option>
-      <option value="it">IT — Italiano</option>
-      <option value="ru">RU — Русский</option>
-      <option value="uk">UK — Українська</option>
-      <option value="uz">UZ — O‘zbekcha</option>
-      <option value="az">AZ — Azərbaycan</option>
-      <option value="ka">KA — ქართული</option>
-      <option value="hy">HY — Հայերեն</option>
-    </select>
-  </div>
-
-  <div class="wrap">
-    <div class="brand">
-      <div class="logo">W</div>
-      <div style="font-weight:800;letter-spacing:.3px">WishClip</div>
-    </div>
-
-    <h1 id="t_title">Create a personal song and a 1-minute music video with AI</h1>
-    <p class="lead" id="t_desc">
-      Congratulate or confess your love with a music video. Answer a few questions — we’ll write the lyrics,
-      sing with the right voice, and auto-produce a one-minute clip.
-    </p>
-
-    <div class="card">
-      <div class="question" id="t_q">Do you already have a QR code?</div>
-      <div class="actions">
-        <a id="yesBtn" class="btn btn-primary" href="/qr.html">Yes — I have a QR</a>
-        <a id="noBtn" class="btn btn-secondary" href="https://gumroad.com/your_product_link" target="_blank" rel="noopener">No — Buy access</a>
-      </div>
-    </div>
-
-    <div class="foot" id="t_foot">
-      QR codes from offline sales are validated on the next step. Online purchases go straight to the AI chat.
-    </div>
-  </div>
-
-  <script>
-    // All UI strings
-    const texts = {
-      en:{title:"Create a personal song and a 1-minute music video with AI",
-          desc:"Congratulate or confess your love with a music video. Answer a few questions — we’ll write the lyrics, sing with the right voice, and auto-produce a one-minute clip.",
-          q:"Do you already have a QR code?",
-          yes:"Yes — I have a QR",
-          no:"No — Buy access",
-          foot:"QR codes from offline sales are validated on the next step. Online purchases go straight to the AI chat."},
-      es:{title:"Crea una canción personal y un videoclip de 1 minuto con IA",
-          desc:"Felicita o declara tu amor con un videoclip. Responde a unas preguntas: escribimos la letra, elegimos la voz y producimos un clip de un minuto.",
-          q:"¿Ya tienes un código QR?",
-          yes:"Sí — Tengo un QR",
-          no:"No — Comprar acceso",
-          foot:"Los QR de ventas offline se validan en el siguiente paso. Las compras online van directo al chat de IA."},
-      fr:{title:"Créez une chanson et un clip d’1 minute avec l’IA",
-          desc:"Félicitez ou déclarez votre amour en vidéo. Répondez à quelques questions — on écrit les paroles, choisit la voix et produit un clip d’une minute.",
-          q:"Avez-vous déjà un QR code ?",
-          yes:"Oui — J’ai un QR",
-          no:"Non — Acheter l’accès",
-          foot:"Les QR vendus hors ligne sont vérifiés à l’étape suivante. Les achats en ligne vont directement au chat IA."},
-      de:{title:"Erstelle mit KI einen persönlichen Song und ein 1-Minuten-Musikvideo",
-          desc:"Gratuliere oder gestehe deine Liebe per Musikvideo. Beantworte ein paar Fragen – wir schreiben den Text, wählen die Stimme und produzieren einen einminütigen Clip.",
-          q:"Hast du bereits einen QR-Code?",
-          yes:"Ja — Ich habe einen QR",
-          no:"Nein — Zugang kaufen",
-          foot:"Offline-QRs werden im nächsten Schritt geprüft. Online-Käufe gehen direkt zum KI-Chat."},
-      it:{title:"Crea una canzone personale e un video di 1 minuto con l’IA",
-          desc:"Fai gli auguri o una dedica d’amore con un videoclip. Rispondi a poche domande: scriviamo il testo, scegliamo la voce e produciamo un clip di un minuto.",
-          q:"Hai già un codice QR?",
-          yes:"Sì — Ho un QR",
-          no:"No — Acquista l’accesso",
-          foot:"I QR venduti offline vengono verificati nel passo successivo. Gli acquisti online vanno direttamente alla chat IA."},
-      ru:{title:"Создайте персональную песню и минутный клип с помощью ИИ",
-          desc:"Поздравьте или признайтесь в любви в музыкальном клипе. Ответьте на несколько вопросов — мы напишем текст, подберём голос и автоматически сделаем минутный ролик.",
-          q:"У вас уже есть QR-код?",
-          yes:"Да — У меня есть QR",
-          no:"Нет — Купить доступ",
-          foot:"Оффлайн-QR проверяется на следующем шаге. Онлайн-покупка ведёт сразу в чат с ИИ."},
-      uk:{title:"Створіть персональну пісню та хвилинний кліп за допомогою ШІ",
-          desc:"Привітайте або зізнайтесь у коханні у музичному кліпі. Дайте кілька відповідей — ми напишемо текст, підберемо голос і створимо хвилинне відео.",
-          q:"У вас вже є QR-код?",
-          yes:"Так — У мене є QR",
-          no:"Ні — Придбати доступ",
-          foot:"QR з офлайн-продажів перевіряється на наступному кроці. Онлайн-покупка веде одразу в чат ШІ."},
-      uz:{title:"Sun’iy intellekt bilan 1 daqiqalik klip va shaxsiy qo‘shiq yarating",
-          desc:"Tabrik yoki sevgini videoklip orqali ifoda eting. Bir nechta savolga javob bering — biz matn yozamiz, ovozni tanlaymiz va bir daqiqalik klip tayyorlaymiz.",
-          q:"Sizda QR-kod bormi?",
-          yes:"Ha — Menda QR bor",
-          no:"Yo‘q — Kirishni sotib olish",
-          foot:"Offline QR keyingi bosqichda tekshiriladi. Onlayn xarid darhol AI chatga olib boradi."},
-      az:{title:"Süni intellektlə 1 dəqiqəlik klip və şəxsi mahnı yaradın",
-          desc:"Təbrikinizi və ya sevginizi musiqi videosu ilə çatdırın. Bir neçə suala cavab verin — mətn yazırıq, səsi seçirik və bir dəqiqəlik klip hazırlayırıq.",
-          q:"Artıq QR-kodunuz var?",
-          yes:"Bəli — Məndə QR var",
-          no:"Xeyr — Giriş alın",
-          foot:"Offline QR növbəti mərhələdə yoxlanılır. Onlayn alış birbaşa AI söhbətinə aparır."},
-      ka:{title:"შექმენით პირადი სიმღერა და 1-წუთიანი ვიდეოკლიპი AI-ს დახმარებით",
-          desc:"მივულოცოთ ან გამოვხატოთ სიყვარული მუსიკალური ვიდეოთ. უპასუხეთ რამდენიმე კითხვას — დავწერთ ტექსტს, ავარჩევთ ხმას და შევქმნით ერთწუთიან კლიპს.",
-          q:"უკვე გაქვთ QR-კოდი?",
-          yes:"დიახ — მაქვს QR",
-          no:"არა — ყიდვა",
-          foot:"ოფლაინ QR მოწმდება შემდეგ ნაბიჯზე. ონლაინ ყიდვა პირდაპირ AI ჩათზე გადაგიყვანთ."},
-      hy:{title:"Ստեղծեք անձնական երգ և մեկ րոպեանոց տեսահոլովակ արհեստական բանականությամբ",
-          desc:"Շնորհավորեք կամ խոստովանեք սերը երաժշտական հոլովակով։ Պատասխանեք մի քանի հարցի — կգրենք բառերը, կընտրենք ձայնը և կստեղծենք մեկ րոպեանոց հոլովակ։",
-          q:"Արդեն ունե՞ք QR-կոդ:",
-          yes:"Այո — Ունեմ QR",
-          no:"Ոչ — Գնել մուտք",
-          foot:"Օֆլայն QR-երը ստուգվում են հաջորդ քայլում։ Առցանց գնման դեպքում անցնում եք անմիջապես AI չաթ։"}
-    };
-
-    const selectEl = document.getElementById('langSelect');
-    const els = {
-      title: document.getElementById('t_title'),
-      desc:  document.getElementById('t_desc'),
-      q:     document.getElementById('t_q'),
-      yes:   document.getElementById('yesBtn'),
-      no:    document.getElementById('noBtn'),
-      foot:  document.getElementById('t_foot'),
-    };
-
-    function applyLang(code){
-      const t = texts[code] || texts.en;
-      els.title.textContent = t.title;
-      els.desc.textContent  = t.desc;
-      els.q.textContent     = t.q;
-      els.yes.textContent   = t.yes;
-      els.no.textContent    = t.no;
-      els.foot.textContent  = t.foot;
-      selectEl.value = code;
-      localStorage.setItem('wishclip_lang', code);
-      document.documentElement.lang = code;
-    }
-
-    // Detect browser language -> map to supported set
-    const mapLang = (raw) => {
-      if(!raw) return 'en';
-      const s = raw.toLowerCase();
-      if (s.startsWith('ru')) return 'ru';
-      if (s.startsWith('uk')) return 'uk';
-      if (s.startsWith('uz')) return 'uz';
-      if (s.startsWith('az')) return 'az';
-      if (s.startsWith('ka')) return 'ka';
-      if (s.startsWith('hy')) return 'hy';
-      if (s.startsWith('es')) return 'es';
-      if (s.startsWith('fr')) return 'fr';
-      if (s.startsWith('de')) return 'de';
-      if (s.startsWith('it')) return 'it';
-      return 'en';
-    };
-
-    // Init
-    const saved = localStorage.getItem('wishclip_lang');
-    const initial = saved || mapLang(navigator.language || navigator.userLanguage);
-    applyLang(initial);
-
-    // Change handler
-    selectEl.addEventListener('change', (e)=>applyLang(e.target.value));
-
-    // Buttons: Yes -> QR check, No -> Gumroad
-    document.getElementById('yesBtn').addEventListener('click', (ev)=>{
-      // leave default href to /qr.html
-    });
-    document.getElementById('noBtn').addEventListener('click', (ev)=>{
-      // keep default Gumroad href
-    });
-  </script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WishClip</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 40px;
+        font-family: Arial, sans-serif;
+        background: url('https://images.unsplash.com/photo-1516280440614-53a8a8f8c756?w=1200&h=800&fit=crop') no-repeat center center fixed;
+        background-size: cover;
+        color: white;
+        text-shadow: 1px 1px 5px rgba(0,0,0,0.8);
+        min-height: 100vh;
+      }
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        text-align: center;
+        background: rgba(0, 0, 0, 0.6);
+        padding: 30px;
+        border-radius: 16px;
+      }
+      h1 {
+        font-size: 28px;
+        margin-bottom: 20px;
+      }
+      p {
+        font-size: 18px;
+        margin-bottom: 20px;
+      }
+      button {
+        padding: 12px 24px;
+        margin: 10px;
+        font-size: 16px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+      }
+      .yes { background: #5a00b8; color: white; }
+      .no { background: #007bff; color: white; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
 </html>
