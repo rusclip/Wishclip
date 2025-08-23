@@ -15,16 +15,5 @@
       "src": "/(.*)",
       "dest": "/index.html"
     }
-  ],
-  "functions": {
-    "api/validate-qr.js": {
-      "runtime": "nodejs18.x"
-    },
-    "api/generate-song.js": {
-      "runtime": "nodejs18.x"
-    },
-    "api/upload-files.js": {
-      "runtime": "nodejs18.x"
-    }
-  }
+  ]
 }
