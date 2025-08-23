@@ -1,6 +1,30 @@
 {
   "version": 2,
-  "buildCommand": "npm run build",
-  "outputDirectory": "dist",
-  "devCommand": "npm run dev"
+  "builds": [
+    {
+      "src": "api/*.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
+  ],
+  "functions": {
+    "api/validate-qr.js": {
+      "runtime": "nodejs18.x"
+    },
+    "api/generate-song.js": {
+      "runtime": "nodejs18.x"
+    },
+    "api/upload-files.js": {
+      "runtime": "nodejs18.x"
+    }
+  }
 }
