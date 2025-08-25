@@ -1,28 +1,30 @@
-export default function Home({ onYes }) {
-  const gumroad = import.meta.env.VITE_GUMROAD_URL || "https://gumroad.com";
+import { useNavigate } from "react-router-dom";
+
+export default function Home() {
+  const nav = useNavigate();
 
   return (
-    <section className="hero">
-      <div className="content">
-        <div className="card">
-          <h1 className="title">Create a musical greeting or love confession with AI</h1>
-          <p className="subtitle">
-            Write the lyrics with our assistant, pick a style, optionally upload your voice, and we’ll generate a 1-minute music video.
-          </p>
+    <div className="hero">
+      <div className="overlay">
+        <h1>Wishclip — AI music video gifts</h1>
+        <p className="desc">
+          Create a personalized song and music video gift. Start by confirming
+          your access QR code or buy access.
+        </p>
 
-          <div className="card stack">
-            <p className="white" style={{margin:0, fontWeight:600}}>Do you have a QR code?</p>
-            <div className="row">
-              <button className="btn btn-primary" onClick={onYes}>Yes</button>
-              <a className="btn btn-ghost" href={gumroad}>No — Buy access ($30)</a>
-            </div>
-          </div>
-
-          <p className="small mt">
-            Your QR is validated once, then linked to the final video. Offline buyers use QR; online buyers go straight to creation.
-          </p>
+        <div className="question">Do you have a QR code?</div>
+        <div className="btns">
+          <button className="yes" onClick={() => nav("/qr")}>Yes</button>
+          <button
+            className="no"
+            onClick={() =>
+              (window.location.href = "https://gumroad.com/your_product_link")
+            }
+          >
+            No
+          </button>
         </div>
       </div>
-    </section>
+    </div>
   );
 }
