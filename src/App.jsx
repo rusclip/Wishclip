@@ -1,46 +1,95 @@
-:root { --white: #fff; --green:#22c55e; --red:#ef4444; }
+/* src/App.css */
 
-* { box-sizing: border-box; }
-body, html, #root { height: 100%; margin: 0; font-family: system-ui, Arial, sans-serif; }
+/* Общие стили для страницы */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  background: linear-gradient(135deg, #f9f9f9, #ececec);
+  color: #333;
+}
 
-/* Главная с фоном микрофона */
-.hero {
-  height: 100%;
-  background: url("/background-mic.jpg") center/cover no-repeat;
-  display: grid;
-  place-items: center;
-  position: relative;
+/* Центрирование контента */
+#root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  padding: 2rem;
+  box-sizing: border-box;
 }
-.hero::after {
-  content:""; position:absolute; inset:0; background:rgba(0,0,0,.45);
+
+/* Заголовок */
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #222;
 }
-.overlay {
-  position: relative; z-index: 1;
-  background: rgba(0,0,0,.55);
-  color: var(--white);
-  padding: 28px; border-radius: 16px; width: min(720px, 92vw);
+
+/* Подзаголовок */
+h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  color: #444;
+}
+
+/* Кнопки */
+button {
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  margin: 0.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.25s ease;
+}
+
+button:hover {
+  background-color: #0059c9;
+}
+
+/* Карточки */
+.card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  margin: 1rem 0;
+  width: 100%;
+  max-width: 600px;
   text-align: center;
 }
-.overlay h1 { margin: 0 0 12px; }
-.desc { opacity:.95; margin: 0 0 18px; }
-.question { font-weight: 600; margin-bottom: 12px; }
-.btns { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
-button { cursor:pointer; border:none; padding:10px 16px; border-radius:10px; color:#fff; font-weight:600; }
-.yes { background: var(--green); }
-.no { background: var(--red); }
 
-/* Внутренние страницы */
-.page { padding: 20px; max-width: 820px; margin: 0 auto; }
-.row { display:flex; gap:8px; margin-top:8px; }
-.row input { flex:1; padding:10px; border:1px solid #ddd; border-radius:8px; }
+/* Вводы */
+input, textarea {
+  width: 100%;
+  padding: 0.75rem;
+  margin: 0.5rem 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
 
-/* Чат */
-.chatbox {
-  border:1px solid #eee; border-radius:12px; padding:12px; min-height:260px; margin:12px 0;
-  display:flex; flex-direction:column; gap:8px;
+input:focus, textarea:focus {
+  border-color: #0070f3;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 112, 243, 0.2);
 }
-.bubble {
-  max-width: 80%; padding:10px 12px; border-radius:12px; line-height:1.35;
+
+/* Ссылки */
+a {
+  color: #0070f3;
+  text-decoration: none;
+  transition: color 0.25s ease;
 }
-.bubble.user { align-self:flex-end; background:#d1fae5; }
-.bubble.bot  { align-self:flex-start; background:#f3f4f6; }
+
+a:hover {
+  color: #0059c9;
+}
