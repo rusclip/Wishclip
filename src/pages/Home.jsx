@@ -1,37 +1,28 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import { GUMROAD_URL } from "../api";
-import { detectLang, LANGS } from "../i18n";
-
-export default function Home(){
-  const nav = useNavigate();
-  const lang = detectLang();
-  const t = LANGS[lang];
-
-  React.useEffect(()=>{ document.title = "WishClip"; },[]);
+export default function Home({ onYes }) {
+  const gumroad = import.meta.env.VITE_GUMROAD_URL || "https://gumroad.com";
 
   return (
-    <div className="center">
-      <div className="card">
-        <div className="header">
-          <div>
-            <div className="hero">
-              <h1>{t.heroTitle}</h1>
-              <p>Make a 60-second personalized song video — choose language, upload or clone voice, pick a character.</p>
+    <section className="hero">
+      <div className="content">
+        <div className="card">
+          <h1 className="title">Create a musical greeting or love confession with AI</h1>
+          <p className="subtitle">
+            Write the lyrics with our assistant, pick a style, optionally upload your voice, and we’ll generate a 1-minute music video.
+          </p>
+
+          <div className="card stack">
+            <p className="white" style={{margin:0, fontWeight:600}}>Do you have a QR code?</p>
+            <div className="row">
+              <button className="btn btn-primary" onClick={onYes}>Yes</button>
+              <a className="btn btn-ghost" href={gumroad}>No — Buy access ($30)</a>
             </div>
           </div>
-        </div>
 
-        <h3 style={{marginTop:12}}>{t.question}</h3>
-        <div className="row" style={{marginTop:10}}>
-          <button className="btn btn-yes" onClick={()=>nav("/qr")}>{t.yes}</button>
-          <button className="btn btn-no" onClick={()=>window.location.href = GUMROAD_URL}>{t.no} — {t.buy}</button>
+          <p className="small mt">
+            Your QR is validated once, then linked to the final video. Offline buyers use QR; online buyers go straight to creation.
+          </p>
         </div>
-
-        <p style={{marginTop:16,color:"#9aa4b2"}}>
-          After buying or validating QR you will enter the AI assistant chat that helps to create lyrics, generate or upload voice, create character images and assemble the 1-minute clip.
-        </p>
       </div>
-    </div>
+    </section>
   );
 }
