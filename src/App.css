@@ -1,0 +1,33 @@
+/* Фон */
+.app {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  background: url('/background.jpg') no-repeat center center fixed;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Полупрозрачный слой */
+.overlay {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 2rem 3rem;
+  border-radius: 1rem;
+  text-align: center;
+  color: white;
+}
+
+/* Заголовок */
+.title {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+/* Подзаголовок */
+.subtitle {
+  font-size: 1.5rem;
+  opacity: 0.9;
+}
