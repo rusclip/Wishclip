@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Wishclip</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wishclip</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Wishclip</h1>
+  
+  <div id="app">
+    <video id="camera" autoplay playsinline></video>
+    <canvas id="canvas" hidden></canvas>
+    <button id="scanBtn">Scan QR</button>
+    <p id="result"></p>
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
 </html>
