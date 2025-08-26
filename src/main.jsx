@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
-import "./index.css"; // общий CSS
+import App from "./App.jsx";
+import "./styles.css";   // ✅ используем только styles.css
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
